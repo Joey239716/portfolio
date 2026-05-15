@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} h-full scroll-smooth antialiased`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${dmSans.variable} h-full scroll-smooth antialiased`}>
       <body className="min-h-full font-sans bg-background text-foreground">
         <Sidebar />
         <TopBar />
