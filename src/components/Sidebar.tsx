@@ -9,7 +9,7 @@ const nav = [
 
 const socials = [
   {
-    href: "https://github.com",
+    href: "https://github.com/Joey239716",
     label: "GitHub",
     svg: (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -18,7 +18,7 @@ const socials = [
     ),
   },
   {
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/in/joey-l-242047241/",
     label: "LinkedIn",
     svg: (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">

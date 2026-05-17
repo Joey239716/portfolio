@@ -12,8 +12,24 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Joey's Portfolio",
-  description: "Personal portfolio of Joey — developer, builder, creator.",
+  title: "Joey Liu — Software Developer",
+  description:
+    "Computer Science student at Queen's University with internship experience at CIBC and CanDeal. Building full-stack systems in Python, Go, C++, and TypeScript.",
+  openGraph: {
+    title: "Joey Liu — Software Developer",
+    description:
+      "Computer Science student at Queen's University with internship experience at CIBC and CanDeal. Building full-stack systems in Python, Go, C++, and TypeScript.",
+    siteName: "Joey Liu",
+    images: [{ url: "/avatar.jpg", width: 1200, height: 630, alt: "Joey Liu" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Joey Liu — Software Developer",
+    description:
+      "Computer Science student at Queen's University with internship experience at CIBC and CanDeal. Building full-stack systems in Python, Go, C++, and TypeScript.",
+    images: ["/avatar.jpg"],
+  },
 };
 
 export default function RootLayout({

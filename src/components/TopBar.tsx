@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 const GITHUB_USERNAME = "Joey239716";
@@ -5,10 +7,8 @@ const GITHUB_USERNAME = "Joey239716";
 export default function TopBar() {
   return (
     <div className="fixed top-6 right-40 z-20 flex items-center gap-2">
-      <a
-        href="/resume.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        onClick={() => window.dispatchEvent(new CustomEvent("open-resume"))}
         className="flex items-center gap-1.5 rounded-full border border-foreground/10 bg-background/80 px-3 py-1.5 backdrop-blur transition-colors hover:border-foreground/20 hover:bg-foreground/5"
       >
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/50">
@@ -19,7 +19,7 @@ export default function TopBar() {
           <polyline points="10,9 9,9 8,9" />
         </svg>
         <span className="text-xs font-medium text-foreground/60">Resume</span>
-      </a>
+      </button>
 
 <a
         href={`https://github.com/${GITHUB_USERNAME}`}

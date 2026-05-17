@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
 import { projects } from "@/lib/projects";
 import { Playfair_Display } from "next/font/google";
-import { SiReact, SiTypescript, SiNextdotjs, SiPython, SiGo, SiCplusplus, SiPostgresql, SiRedis, SiFlask, SiVercel, SiWebassembly, SiCmake, SiTailwindcss, SiFramer, SiDocker, SiSupabase, SiCloudflare } from "react-icons/si";
+import { SiReact, SiTypescript, SiNextdotjs, SiPython, SiGo, SiCplusplus, SiPostgresql, SiRedis, SiFlask, SiVercel, SiWebassembly, SiCmake, SiTailwindcss, SiFramer, SiDocker, SiSupabase, SiCloudflare, SiPytest, SiSelenium, SiFastapi, SiMongodb, SiJavascript } from "react-icons/si";
+import { FaJava } from "react-icons/fa";
 import type { IconType } from "react-icons";
 
 function AwsIcon({ size, style }: { size?: number; style?: React.CSSProperties }) {
@@ -35,6 +36,12 @@ const techIcons: Record<string, IconType> = {
   "Docker": SiDocker,
   "Supabase": SiSupabase,
   "Cloudflare": SiCloudflare,
+  "Pytest": SiPytest,
+  "Selenium": SiSelenium,
+  "FastAPI": SiFastapi,
+  "MongoDB": SiMongodb,
+  "Java": FaJava,
+  "JavaScript": SiJavascript,
   "AWS": AwsIcon as IconType,
 };
 
@@ -56,6 +63,12 @@ const techColors: Record<string, string> = {
   "Docker": "#2496ED",
   "Supabase": "#3ECF8E",
   "Cloudflare": "#F38020",
+  "Pytest": "#0A9EDC",
+  "Selenium": "#43B02A",
+  "FastAPI": "#009688",
+  "MongoDB": "#47A248",
+  "Java": "#ED8B00",
+  "JavaScript": "#F7DF1E",
   "AWS": "#FF9900",
 };
 
@@ -131,6 +144,7 @@ function SectionHeader({ children }: { children: React.ReactNode }) {
 }
 
 export default function Home() {
+  const [resumeOpen, setResumeOpen] = useState(false);
   const typed = useTypewriter();
   const rawAngle = useMotionValue(90);
   const angle = useSpring(rawAngle, { stiffness: 60, damping: 20 });
@@ -146,6 +160,17 @@ export default function Home() {
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
   }, [rawAngle]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setResumeOpen(false); };
+    const onOpen = () => setResumeOpen(true);
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("open-resume", onOpen);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("open-resume", onOpen);
+    };
+  }, []);
 
   return (
     <div className="relative">
@@ -196,10 +221,8 @@ export default function Home() {
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-6 flex flex-wrap items-center gap-2">
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setResumeOpen(true)}
                 className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-[#111] hover:opacity-90 transition-opacity duration-200"
                 style={{ background: "linear-gradient(135deg, #B2EF91, #FA9372)" }}
               >
@@ -210,7 +233,7 @@ export default function Home() {
                   <line x1="16" y1="17" x2="8" y2="17" />
                 </svg>
                 Resume
-              </a>
+              </button>
               <a
                 href="https://www.linkedin.com/in/joey-l-242047241/"
                 target="_blank"
@@ -221,17 +244,6 @@ export default function Home() {
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
                 LinkedIn
-              </a>
-              <a
-                href="https://discord.com/users/joeeyy2310"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 px-3.5 py-1.5 text-xs text-foreground/50 hover:border-foreground/30 hover:text-foreground/80 transition-colors duration-200"
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-                </svg>
-                joeeyy2310
               </a>
             </motion.div>
           </div>
@@ -275,8 +287,8 @@ export default function Home() {
               {/* Left: avatar */}
               <div className="flex justify-center md:justify-start">
                 <div className="p-0.5 rounded-3xl shrink-0" style={{ background: "linear-gradient(135deg, #B2EF91, #FA9372)" }}>
-                  <div className="relative w-44 h-56 rounded-[22px] overflow-hidden">
-                    <Image src="/avatar.jpg" alt="Joey" fill sizes="176px" className="object-cover" />
+                  <div className="relative w-56 h-72 rounded-[22px] overflow-hidden">
+                    <Image src="/avatar.jpg" alt="Joey" fill sizes="224px" className="object-cover" />
                   </div>
                 </div>
               </div>
@@ -286,22 +298,29 @@ export default function Home() {
                 <p className="text-foreground/60 leading-relaxed">
                   I&apos;m a Computer Science student at Queen&apos;s University who loves building things that actually ship. I&apos;ve interned at CIBC and CanDeal writing Python, Go, and C++, mostly automating things that shouldn&apos;t need a human, and making systems faster or cheaper than they were before. Outside of code, you&apos;ll find me on a climbing wall!
                 </p>
-                <div>
-                  <p className="text-xs text-foreground/40 uppercase tracking-widest mb-3">Stack</p>
-                  <div className="flex flex-wrap gap-2">
-                    {["Python", "Go", "C++", "TypeScript", "React", "Next.js", "Docker", "PostgreSQL", "AWS"].map((tech) => {
-                      const Icon = techIcons[tech];
-                      return (
-                        <span
-                          key={tech}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-foreground/10 px-3 py-1.5 text-xs text-foreground/60 hover:border-foreground/20 hover:text-foreground/80 transition-colors duration-200"
-                        >
-                          {Icon && <Icon size={11} style={{ color: techColors[tech] }} />}
-                          {tech}
-                        </span>
-                      );
-                    })}
-                  </div>
+                <div className="flex flex-col gap-4">
+                  {([
+                    { label: "Languages", items: ["Python", "C++", "Go", "Java", "JavaScript", "TypeScript"] },
+                    { label: "Technologies", items: ["React", "Next.js", "FastAPI", "Flask", "Docker", "PostgreSQL", "MongoDB", "AWS", "Pytest", "Selenium", "Tailwind CSS"] },
+                  ] as { label: string; items: string[] }[]).map(({ label, items }) => (
+                    <div key={label}>
+                      <p className="text-xs text-foreground/40 uppercase tracking-widest mb-3">{label}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {items.map((tech) => {
+                          const Icon = techIcons[tech];
+                          return (
+                            <span
+                              key={tech}
+                              className="inline-flex items-center gap-1.5 rounded-full border border-foreground/10 px-3 py-1.5 text-xs text-foreground/60 hover:border-foreground/20 hover:text-foreground/80 transition-colors duration-200"
+                            >
+                              {Icon && <Icon size={11} style={{ color: techColors[tech] }} />}
+                              {tech}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
               </div>
@@ -324,16 +343,15 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-foreground">Canadian Imperial Bank of Commerce</p>
-                        <p className="text-xs text-foreground/50 mt-0.5">Software Developer Intern · Toronto, ON</p>
+                        <p className="text-xs text-foreground/50 mt-0.5">Data Analyst Intern / Software Developer Intern · Toronto, ON</p>
                       </div>
                     </div>
                     <span className="text-xs text-foreground/35 shrink-0 tabular-nums mt-0.5">Sep – Dec 2025</span>
                   </div>
                   <ul className="mt-3 flex flex-col gap-1.5 pl-1 ml-13">
                     {[
-                      <><span className="text-foreground font-semibold">Python</span> application automating employee offboarding emails, reducing manual communication overhead by <span className="text-foreground font-semibold">85%</span>.</>,
+                      <>Designed a <span className="text-foreground font-semibold">Python</span> application automating employee offboarding emails, reducing manual communication overhead by <span className="text-foreground font-semibold">85%</span>.</>,
                       <>Built an <span className="text-foreground font-semibold">anomaly detection engine</span> using deviation analysis across a <span className="text-foreground font-semibold">250k row CSV</span> database to identify behavioral outliers.</>,
-                      <>Engineered <span className="text-foreground font-semibold">SQL aggregation pipelines</span> to surface real-time behavioral insights from surveillance data for internal reporting.</>,
                       <>Automated <span className="text-foreground font-semibold">ServiceNow</span> whitelisting ticket workflow using <span className="text-foreground font-semibold">Selenium</span> and <span className="text-foreground font-semibold">Python</span>, saving <span className="text-foreground font-semibold">260+ hours</span> of compliance review.</>,
                     ].map((bullet, i) => (
                       <li key={i} className="text-sm text-foreground/50 leading-relaxed flex gap-2">
@@ -468,7 +486,7 @@ export default function Home() {
               Open to opportunities, collaborations, or just a chat.
             </motion.p>
 
-            <motion.div variants={stagger} className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <motion.div variants={stagger} className="mt-8 mx-auto max-w-2xl grid grid-cols-1 sm:grid-cols-3 gap-5">
 
               {/* Email — Gmail 4-color palette, lightened */}
               <motion.a variants={fadeUp} href="mailto:joey.liu2025@gmail.com"
@@ -534,31 +552,84 @@ export default function Home() {
                 </div>
               </motion.a>
 
-              {/* Discord — soft purple → lavender */}
-              <motion.a variants={fadeUp} href="https://discord.com/users/joeeyy2310" target="_blank" rel="noopener noreferrer"
-                className="group rounded-2xl border border-foreground/10 bg-foreground/2 p-3 flex flex-col gap-3 hover:border-foreground/20 transition-all duration-200"
-              >
-                <div className="w-full aspect-square rounded-xl flex items-center justify-center"
-                  style={{ background: "linear-gradient(135deg, #C084FC, #93C5FD)" }}>
-                  <svg width="52" height="52" viewBox="0 0 24 24" fill="currentColor" style={{ color: "rgba(255,255,255,0.9)" }}>
-                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-                  </svg>
-                </div>
-                <div className="flex items-start justify-between px-1 pb-1">
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">Discord</p>
-                    <p className="text-xs text-foreground/50 mt-0.5">joeeyy2310</p>
-                  </div>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-1 shrink-0 text-foreground/30 group-hover:text-foreground/60 transition-colors duration-200">
-                    <path d="M2 8L8 2M8 2H3.5M8 2V6.5" />
-                  </svg>
-                </div>
-              </motion.a>
 
             </motion.div>
           </motion.div>
         </div>
       </section>
+
+      {/* Resume modal */}
+      <AnimatePresence>
+        {resumeOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+              onClick={() => setResumeOpen(false)}
+            />
+
+            {/* Panel */}
+            <motion.div
+              className="relative z-10 flex flex-col w-full max-w-4xl h-[90vh] rounded-2xl border border-foreground/10 bg-background shadow-2xl overflow-hidden"
+              initial={{ scale: 0.96, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-foreground/10 shrink-0">
+                <span className="text-sm font-medium text-foreground">Resume</span>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="/resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 px-3 py-1.5 text-xs text-foreground/50 hover:border-foreground/30 hover:text-foreground/80 transition-colors duration-200"
+                  >
+                    <svg width="11" height="11" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M2 8L8 2M8 2H3.5M8 2V6.5" />
+                    </svg>
+                    Open
+                  </a>
+                  <a
+                    href="/resume.pdf"
+                    download
+                    className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 px-3 py-1.5 text-xs text-foreground/50 hover:border-foreground/30 hover:text-foreground/80 transition-colors duration-200"
+                  >
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download
+                  </a>
+                  <button
+                    onClick={() => setResumeOpen(false)}
+                    className="flex items-center justify-center w-7 h-7 rounded-full border border-foreground/15 text-foreground/40 hover:border-foreground/30 hover:text-foreground/80 transition-colors duration-200"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* PDF */}
+              <iframe
+                src="/resume.pdf"
+                className="flex-1 w-full"
+                title="Resume"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
