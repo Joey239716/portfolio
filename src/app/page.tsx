@@ -348,7 +348,7 @@ export default function Home() {
                     </div>
                     <span className="text-xs text-foreground/35 shrink-0 tabular-nums mt-0.5">Sep – Dec 2025</span>
                   </div>
-                  <ul className="mt-3 flex flex-col gap-1.5 pl-1 ml-13">
+                  <ul className="mt-3 flex flex-col gap-1.5 pl-1 ml-0 sm:ml-13">
                     {[
                       <>Designed a <span className="text-foreground font-semibold">Python</span> application automating employee offboarding emails, reducing manual communication overhead by <span className="text-foreground font-semibold">85%</span>.</>,
                       <>Built an <span className="text-foreground font-semibold">anomaly detection engine</span> using deviation analysis across a <span className="text-foreground font-semibold">250k row CSV</span> database to identify behavioral outliers.</>,
@@ -356,7 +356,7 @@ export default function Home() {
                     ].map((bullet, i) => (
                       <li key={i} className="text-sm text-foreground/50 leading-relaxed flex gap-2">
                         <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-foreground/20" />
-                        {bullet}
+                        <span>{bullet}</span>
                       </li>
                     ))}
                   </ul>
@@ -376,7 +376,7 @@ export default function Home() {
                     </div>
                     <span className="text-xs text-foreground/35 shrink-0 tabular-nums mt-0.5">May – Aug 2025</span>
                   </div>
-                  <ul className="mt-3 flex flex-col gap-1.5 pl-1 ml-13">
+                  <ul className="mt-3 flex flex-col gap-1.5 pl-1 ml-0 sm:ml-13">
                     {[
                       <>Developed a <span className="text-foreground font-semibold">Go</span> service consuming the <span className="text-foreground font-semibold">Slack REST API</span> to deliver server health alerts, enabling <span className="text-foreground font-semibold">24/7</span> on-call coverage.</>,
                       <>Connected a <span className="text-foreground font-semibold">Python</span> application to automate threat screening against <span className="text-foreground font-semibold">AWS</span> log data, saving <span className="text-foreground font-semibold">20+ hours</span> of monthly review.</>,
@@ -385,7 +385,7 @@ export default function Home() {
                     ].map((bullet, i) => (
                       <li key={i} className="text-sm text-foreground/50 leading-relaxed flex gap-2">
                         <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-foreground/20" />
-                        {bullet}
+                        <span>{bullet}</span>
                       </li>
                     ))}
                   </ul>
@@ -405,7 +405,7 @@ export default function Home() {
                     </div>
                     <span className="text-xs text-foreground/35 shrink-0 tabular-nums mt-0.5">2023 — 2027</span>
                   </div>
-                  <div className="mt-3 ml-13 border-t border-foreground/10 pt-3">
+                  <div className="mt-3 ml-0 sm:ml-13 border-t border-foreground/10 pt-3">
                     <p className="text-xs text-foreground/40 uppercase tracking-widest mb-2">Coursework</p>
                     <div className="flex flex-wrap gap-1.5">
                       {["Data Structures & Algorithms", "Discrete Structures", "Computer Architecture", "Database Management Systems", "Statistics", "Operating Systems", "Software Architecture", "Algorithms"].map((course) => (

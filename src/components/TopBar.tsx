@@ -6,7 +6,7 @@ const GITHUB_USERNAME = "Joey239716";
 
 export default function TopBar() {
   return (
-    <div className="fixed top-6 right-40 z-20 flex items-center gap-2">
+    <div className="hidden lg:flex fixed top-6 right-40 z-20 items-center gap-2">
       <button
         onClick={() => window.dispatchEvent(new CustomEvent("open-resume"))}
         className="flex items-center gap-1.5 rounded-full border border-foreground/10 bg-background/80 px-3 py-1.5 backdrop-blur transition-colors hover:border-foreground/20 hover:bg-foreground/5"
