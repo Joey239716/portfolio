@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
 import { projects } from "@/lib/projects";
 import { Playfair_Display } from "next/font/google";
 import { SiReact, SiTypescript, SiNextdotjs, SiPython, SiGo, SiCplusplus, SiPostgresql, SiRedis, SiFlask, SiVercel, SiWebassembly, SiCmake, SiTailwindcss, SiFramer, SiDocker, SiSupabase, SiCloudflare, SiPytest, SiSelenium, SiFastapi, SiMongodb, SiJavascript } from "react-icons/si";
@@ -144,7 +144,6 @@ function SectionHeader({ children }: { children: React.ReactNode }) {
 }
 
 export default function Home() {
-  const [resumeOpen, setResumeOpen] = useState(false);
   const typed = useTypewriter();
   const rawAngle = useMotionValue(90);
   const angle = useSpring(rawAngle, { stiffness: 60, damping: 20 });
@@ -160,17 +159,6 @@ export default function Home() {
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
   }, [rawAngle]);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setResumeOpen(false); };
-    const onOpen = () => setResumeOpen(true);
-    window.addEventListener("keydown", onKey);
-    window.addEventListener("open-resume", onOpen);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("open-resume", onOpen);
-    };
-  }, []);
 
   return (
     <div className="relative">
@@ -221,19 +209,6 @@ export default function Home() {
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-6 flex flex-wrap items-center gap-2">
-              <button
-                onClick={() => setResumeOpen(true)}
-                className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-[#111] hover:opacity-90 transition-opacity duration-200"
-                style={{ background: "linear-gradient(135deg, #B2EF91, #FA9372)" }}
-              >
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14,2 14,8 20,8" />
-                  <line x1="16" y1="13" x2="8" y2="13" />
-                  <line x1="16" y1="17" x2="8" y2="17" />
-                </svg>
-                Resume
-              </button>
               <a
                 href="https://www.linkedin.com/in/joey-l-242047241/"
                 target="_blank"
@@ -343,7 +318,7 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-foreground">Canadian Imperial Bank of Commerce</p>
-                        <p className="text-xs text-foreground/50 mt-0.5">Data Analyst Intern / Software Developer Intern · Toronto, ON</p>
+                        <p className="text-xs text-foreground/50 mt-0.5">Software Engineer Intern · Toronto, ON</p>
                       </div>
                     </div>
                     <span className="text-xs text-foreground/35 shrink-0 tabular-nums mt-0.5">Sep – Dec 2025</span>
@@ -371,14 +346,13 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-foreground">CanDeal</p>
-                        <p className="text-xs text-foreground/50 mt-0.5">Software Developer Intern · Toronto, ON</p>
+                        <p className="text-xs text-foreground/50 mt-0.5">Software Engineer Intern · Toronto, ON</p>
                       </div>
                     </div>
                     <span className="text-xs text-foreground/35 shrink-0 tabular-nums mt-0.5">May – Aug 2025</span>
                   </div>
                   <ul className="mt-3 flex flex-col gap-1.5 pl-1 ml-0 sm:ml-13">
                     {[
-                      <>Developed a <span className="text-foreground font-semibold">Go</span> service consuming the <span className="text-foreground font-semibold">Slack REST API</span> to deliver server health alerts, enabling <span className="text-foreground font-semibold">24/7</span> on-call coverage.</>,
                       <>Connected a <span className="text-foreground font-semibold">Python</span> application to automate threat screening against <span className="text-foreground font-semibold">AWS</span> log data, saving <span className="text-foreground font-semibold">20+ hours</span> of monthly review.</>,
                       <>Streamlined environment setup by containerizing internal tools with <span className="text-foreground font-semibold">Docker</span>, standardizing deployments across the team.</>,
                       <>Offloaded <span className="text-foreground font-semibold">80%</span> of configuration reconciliation across distributed servers by developing an internal <span className="text-foreground font-semibold">Python</span> validation tool.</>,
@@ -486,11 +460,11 @@ export default function Home() {
               Open to opportunities, collaborations, or just a chat.
             </motion.p>
 
-            <motion.div variants={stagger} className="mt-8 mx-auto max-w-2xl grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <motion.div variants={stagger} className="mt-8 mx-auto max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-10">
 
               {/* Email — Gmail 4-color palette, lightened */}
               <motion.a variants={fadeUp} href="mailto:joey.liu2025@gmail.com"
-                className="group rounded-2xl border border-foreground/10 bg-foreground/2 p-3 flex flex-col gap-3 hover:border-foreground/20 transition-all duration-200"
+                className="group rounded-2xl border border-foreground/10 bg-foreground/2 p-3 sm:p-5 flex flex-col gap-3 sm:gap-5 hover:border-foreground/20 transition-all duration-200"
               >
                 <div className="w-full aspect-square rounded-xl flex items-center justify-center"
                   style={{ background: "linear-gradient(135deg, #FCA5A5 0%, #FDE68A 33%, #93C5FD 66%, #86EFAC 100%)" }}>
@@ -501,8 +475,8 @@ export default function Home() {
                 </div>
                 <div className="flex items-start justify-between px-1 pb-1">
                   <div>
-                    <p className="text-sm font-semibold text-foreground">Email</p>
-                    <p className="text-xs text-foreground/50 mt-0.5">joey.liu2025@gmail.com</p>
+                    <p className="text-sm sm:text-base font-semibold text-foreground">Email</p>
+                    <p className="text-xs sm:text-sm text-foreground/50 mt-0.5">joey.liu2025@gmail.com</p>
                   </div>
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-1 shrink-0 text-foreground/30 group-hover:text-foreground/60 transition-colors duration-200">
                     <path d="M2 8L8 2M8 2H3.5M8 2V6.5" />
@@ -512,7 +486,7 @@ export default function Home() {
 
               {/* LinkedIn — LinkedIn blue → light periwinkle */}
               <motion.a variants={fadeUp} href="https://www.linkedin.com/in/joey-l-242047241/" target="_blank" rel="noopener noreferrer"
-                className="group rounded-2xl border border-foreground/10 bg-foreground/2 p-3 flex flex-col gap-3 hover:border-foreground/20 transition-all duration-200"
+                className="group rounded-2xl border border-foreground/10 bg-foreground/2 p-3 sm:p-5 flex flex-col gap-3 sm:gap-5 hover:border-foreground/20 transition-all duration-200"
               >
                 <div className="w-full aspect-square rounded-xl flex items-center justify-center"
                   style={{ background: "linear-gradient(135deg, #3B82F6, #BFDBFE)" }}>
@@ -522,8 +496,8 @@ export default function Home() {
                 </div>
                 <div className="flex items-start justify-between px-1 pb-1">
                   <div>
-                    <p className="text-sm font-semibold text-foreground">LinkedIn</p>
-                    <p className="text-xs text-foreground/50 mt-0.5">joey-l-242047241</p>
+                    <p className="text-sm sm:text-base font-semibold text-foreground">LinkedIn</p>
+                    <p className="text-xs sm:text-sm text-foreground/50 mt-0.5">joey-l-242047241</p>
                   </div>
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-1 shrink-0 text-foreground/30 group-hover:text-foreground/60 transition-colors duration-200">
                     <path d="M2 8L8 2M8 2H3.5M8 2V6.5" />
@@ -533,7 +507,7 @@ export default function Home() {
 
               {/* GitHub — deep purple → soft lavender */}
               <motion.a variants={fadeUp} href="https://github.com/Joey239716" target="_blank" rel="noopener noreferrer"
-                className="group rounded-2xl border border-foreground/10 bg-foreground/2 p-3 flex flex-col gap-3 hover:border-foreground/20 transition-all duration-200"
+                className="group rounded-2xl border border-foreground/10 bg-foreground/2 p-3 sm:p-5 flex flex-col gap-3 sm:gap-5 hover:border-foreground/20 transition-all duration-200"
               >
                 <div className="w-full aspect-square rounded-xl flex items-center justify-center"
                   style={{ background: "linear-gradient(135deg, #3B0764, #A78BFA)" }}>
@@ -543,8 +517,8 @@ export default function Home() {
                 </div>
                 <div className="flex items-start justify-between px-1 pb-1">
                   <div>
-                    <p className="text-sm font-semibold text-foreground">GitHub</p>
-                    <p className="text-xs text-foreground/50 mt-0.5">Joey239716</p>
+                    <p className="text-sm sm:text-base font-semibold text-foreground">GitHub</p>
+                    <p className="text-xs sm:text-sm text-foreground/50 mt-0.5">Joey239716</p>
                   </div>
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-1 shrink-0 text-foreground/30 group-hover:text-foreground/60 transition-colors duration-200">
                     <path d="M2 8L8 2M8 2H3.5M8 2V6.5" />
@@ -558,78 +532,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Resume modal */}
-      <AnimatePresence>
-        {resumeOpen && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {/* Backdrop */}
-            <div
-              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-              onClick={() => setResumeOpen(false)}
-            />
-
-            {/* Panel */}
-            <motion.div
-              className="relative z-10 flex flex-col w-full max-w-4xl h-[90vh] rounded-2xl border border-foreground/10 bg-background shadow-2xl overflow-hidden"
-              initial={{ scale: 0.96, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-foreground/10 shrink-0">
-                <span className="text-sm font-medium text-foreground">Resume</span>
-                <div className="flex items-center gap-2">
-                  <a
-                    href="/resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 px-3 py-1.5 text-xs text-foreground/50 hover:border-foreground/30 hover:text-foreground/80 transition-colors duration-200"
-                  >
-                    <svg width="11" height="11" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M2 8L8 2M8 2H3.5M8 2V6.5" />
-                    </svg>
-                    Open
-                  </a>
-                  <a
-                    href="/resume.pdf"
-                    download
-                    className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 px-3 py-1.5 text-xs text-foreground/50 hover:border-foreground/30 hover:text-foreground/80 transition-colors duration-200"
-                  >
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    Download
-                  </a>
-                  <button
-                    onClick={() => setResumeOpen(false)}
-                    className="flex items-center justify-center w-7 h-7 rounded-full border border-foreground/15 text-foreground/40 hover:border-foreground/30 hover:text-foreground/80 transition-colors duration-200"
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {/* PDF */}
-              <iframe
-                src="/resume.pdf"
-                className="flex-1 w-full"
-                title="Resume"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
     </div>
   );

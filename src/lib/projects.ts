@@ -40,17 +40,17 @@ export const projects: Project[] = [
     longDescription:
       "Engineered a C++17 solver compiled to WebAssembly via Emscripten, running entirely in the browser with no backend. Leveraged OpenCV.js to extract an 8×8 board state using adaptive brightness-variance classification across multiple color themes. Implemented heuristic-guided backtracking with branch-and-bound pruning, achieving a 99.4% reduction in evaluated states versus brute force (1.57M → ~10K). Applied memoization for a 7× throughput increase, keeping typical solve time under 150 ms.",
     overview: [
-      "Block Blast is a popular mobile puzzle game where players place groups of tiles on an 8×8 grid, clearing rows and columns when they fill up. Finding the optimal sequence of three simultaneous piece placements is a computationally hard search problem — brute force evaluation blows up to over 1.57 million states per turn. BlockBlaster AI solves this in under 150 milliseconds, entirely in the browser, with no server involved.",
+      "Block Blast is a popular mobile puzzle game where players place groups of tiles on an 8×8 grid, clearing rows and columns when they fill up. Finding the optimal sequence of three simultaneous piece placements is a computationally hard search problem, since brute force evaluation blows up to over 1.57 million states per turn. BlockBlaster AI solves this in under 150 milliseconds, entirely in the browser, with no server involved.",
       "The solver is written in C++17 and compiled to WebAssembly via Emscripten, producing a 157 KB binary that executes in any modern browser. A heuristic-guided backtracking engine with branch-and-bound pruning reduces the search space by 99.4%, and a 64-bit XOR board-hash memoization layer adds a further 7× speedup by caching repeated position evaluations.",
-      "Board state is extracted from uploaded screenshots using OpenCV.js running entirely client-side. The vision pipeline applies Canny edge detection and morphological dilation to localize the board, then classifies each of the 64 cells using bevel-contrast scoring — an approach that works across all Block Blast color themes without any retraining or recalibration.",
+      "Board state is extracted from uploaded screenshots using OpenCV.js running entirely client-side. The vision pipeline applies Canny edge detection and morphological dilation to localize the board, then classifies each of the 64 cells using bevel-contrast scoring, an approach that works across all Block Blast color themes without any retraining or recalibration.",
     ],
     problem:
-      "Finding the optimal 3-piece placement sequence in Block Blast requires evaluating up to 1.57 million board states per turn. Brute force is far too slow for interactive use. The challenge was building a solver fast enough to run at interactive speeds with zero server infrastructure — everything had to execute in the browser.",
+      "Finding the optimal 3-piece placement sequence in Block Blast requires evaluating up to 1.57 million board states per turn. Brute force is far too slow for interactive use. The challenge was building a solver fast enough to run at interactive speeds with zero server infrastructure. Everything had to execute in the browser.",
     features: [
       {
         title: "Screenshot Board Detection",
         description:
-          "Upload any Block Blast screenshot and the vision pipeline automatically localizes the 8×8 grid and classifies all 64 cells using OpenCV.js running entirely client-side — no server call required.",
+          "Upload any Block Blast screenshot and the vision pipeline automatically localizes the 8×8 grid and classifies all 64 cells using OpenCV.js running entirely client-side, with no server call required.",
       },
       {
         title: "Heuristic Branch-and-Bound Solver",
@@ -65,7 +65,7 @@ export const projects: Project[] = [
       {
         title: "Interactive Board Editor",
         description:
-          "Manually configure any 8×8 board layout using an interactive grid editor with 38 predefined Block Blast piece shapes — useful for puzzles where screenshot detection isn't perfect.",
+          "Manually configure any 8×8 board layout using an interactive grid editor with 38 predefined Block Blast piece shapes, useful for puzzles where screenshot detection isn't perfect.",
       },
       {
         title: "Step-by-Step Animated Playback",
@@ -75,7 +75,7 @@ export const projects: Project[] = [
       {
         title: "Theme-Independent Vision",
         description:
-          "Brightness-variance scoring with bevel-contrast thresholding accurately classifies cells across all Block Blast color themes — no hardcoded pixel values, no retraining needed.",
+          "Brightness-variance scoring with bevel-contrast thresholding accurately classifies cells across all Block Blast color themes, with no hardcoded pixel values and no retraining needed.",
       },
     ],
     architecture:
@@ -114,9 +114,9 @@ export const projects: Project[] = [
     longDescription:
       "Built a distributed traffic simulation with vehicle-to-vehicle communication and dynamic rerouting to improve fleet throughput. Designed a bidirectional Go gateway streaming simulation data over ZeroMQ PUB/SUB with browser command routing. Integrated Protocol Buffer deserialization to process and transform high-frequency C++ simulation frames for real-time downstream consumption.",
     overview: [
-      "FleetComm is a distributed traffic simulation that lets you watch two driving paradigms compete side-by-side on a San Francisco road network. In Human Mode, 72 vehicles navigate using sight cones with reaction-time delays mimicking human drivers. Switch to V2V Mode and those same vehicles instantly begin broadcasting position and hazard status to neighbors, enabling collective fleet-wide response to incidents — no human reaction time, no blind spots.",
+      "FleetComm is a distributed traffic simulation that lets you watch two driving paradigms compete side-by-side on a San Francisco road network. In Human Mode, 72 vehicles navigate using sight cones with reaction-time delays mimicking human drivers. Switch to V2V Mode and those same vehicles instantly begin broadcasting position and hazard status to neighbors, enabling collective fleet-wide response to incidents, with no human reaction time and no blind spots.",
       "The system uses a three-tier distributed architecture. A C++ simulation engine runs physics calculations, Dijkstra pathfinding, and collision/breakdown logic at high frequency, publishing compressed WorldState frames as Protocol Buffer messages over ZeroMQ PUB/SUB. A Go gateway subscribes, deserializes, transforms to JSON, and fans the updates out to all connected browser clients over WebSocket. A React/Leaflet frontend renders vehicle positions in real time and routes mode-switch commands back upstream to the simulation.",
-      "The Protocol Buffer serialization pipeline was central to handling high-frequency simulation frames efficiently. The Go gateway performs selective state transformation before broadcasting, filtering out noise and shaping data for the frontend's consumption. The bidirectional command channel means the browser can toggle V2V mode mid-simulation — no restart, no reconnect.",
+      "The Protocol Buffer serialization pipeline was central to handling high-frequency simulation frames efficiently. The Go gateway performs selective state transformation before broadcasting, filtering out noise and shaping data for the frontend's consumption. The bidirectional command channel means the browser can toggle V2V mode mid-simulation without a restart or a reconnect.",
     ],
     problem:
       "Quantifying the real-world throughput benefits of V2V communication requires a realistic, visually compelling simulation. The technical challenge was building a data pipeline that could carry high-frequency C++ simulation frames to a live browser interface without data loss, while keeping a bidirectional command channel open for interactive mode switching.",
@@ -179,12 +179,12 @@ export const projects: Project[] = [
     longDescription:
       "Developed TheIpoStreet.com, a web platform that ingests and displays SEC filings using the OpenAI GPT API. Minimized redundant database API calls by implementing a Redis cache-aside pattern to avoid reprocessing filings. Decreased asset load times by migrating binary files out of the database and into S3-compatible object storage. Cut infrastructure costs by offloading API handling to Cloudflare serverless functions for scalable deployment.",
     overview: [
-      "TheIpoStreet.com is a live web platform that monitors SEC EDGAR daily filings to surface IPO candidates — specifically S-1 and S-1/A forms — before they appear in mainstream financial media. A Python worker polls the SEC's daily filing index every business day, intelligently skipping weekends and holidays, and triggers AI-powered GPT summaries for each new filing it discovers.",
+      "TheIpoStreet.com is a live web platform that monitors SEC EDGAR daily filings to surface IPO candidates, specifically S-1 and S-1/A forms, before they appear in mainstream financial media. A Python worker polls the SEC's daily filing index every business day, intelligently skipping weekends and holidays, and triggers AI-powered GPT summaries for each new filing it discovers.",
       "The infrastructure was engineered to minimize costs at every layer. Binary filing documents that were previously stored directly in PostgreSQL were migrated to S3-compatible object storage, dramatically cutting asset load times and database egress costs. A Redis cache-aside layer in front of the Flask API ensures repeated lookups for the same filing hit cache instead of triggering redundant database queries and paid GPT API calls.",
       "API handling is offloaded to Cloudflare serverless functions at the edge, allowing the backend to scale down while maintaining globally low latency. The frontend is a Next.js application with TypeScript, rendering structured filing data fast and linking directly to the official SEC.gov source documents.",
     ],
     problem:
-      "IPO filings are publicly available on SEC EDGAR but difficult to monitor continuously. Most retail investors only hear about upcoming IPOs after media coverage — by which point the opportunity window has narrowed significantly. TheIpoStreet automates detection at the source, surfacing filings the moment they appear in the SEC's daily index.",
+      "IPO filings are publicly available on SEC EDGAR but difficult to monitor continuously. Most retail investors only hear about upcoming IPOs after media coverage, by which point the opportunity window has narrowed significantly. TheIpoStreet automates detection at the source, surfacing filings the moment they appear in the SEC's daily index.",
     features: [
       {
         title: "Real-Time SEC EDGAR Monitoring",
@@ -209,7 +209,7 @@ export const projects: Project[] = [
       {
         title: "Cloudflare Edge API",
         description:
-          "Cloudflare serverless functions proxy API traffic at the edge, handling rate limiting and reducing cold-start latency globally — without requiring a dedicated always-on backend server.",
+          "Cloudflare serverless functions proxy API traffic at the edge, handling rate limiting and reducing cold-start latency globally without requiring a dedicated always-on backend server.",
       },
       {
         title: "Next.js Frontend",
@@ -249,21 +249,21 @@ export const projects: Project[] = [
   {
     slug: "codey-village",
     title: "Codey Village",
-    description: "Multiplayer browser game that converts real coding activity—LeetCode solves, GitHub commits, and job applications—into in-game currency to build and decorate islands.",
+    description: "Multiplayer browser game that converts real coding activity (LeetCode solves, GitHub commits, and job applications) into in-game currency to build and decorate islands.",
     longDescription:
       "Built a gamified productivity platform where a Chrome extension passively monitors LeetCode submissions, GitHub commits, and Workday job applications, awarding coins redeemable in a Phaser 3 island-building game. Architected a FastAPI backend backed by MongoDB Atlas for player profiles, island state, and transaction history. Implemented real-time multiplayer rooms supporting up to 5 concurrent players over WebSockets. Integrated GitHub OAuth and webhook reception via a Node.js middleware server, and used the Google Gemini API for dynamic NPC dialogue. Deployed the backend on Google Cloud Run with Docker and the frontend on Vercel.",
     overview: [
-      "Codey Village turns developer work into a game. A Chrome extension passively monitors LeetCode, GitHub, and Workday in the background — when you solve a LeetCode problem, push a commit, or submit a job application, you earn coins automatically, with no manual input required. Those coins fund an island-building game built in Phaser 3, where you purchase buildings and decorations to grow your village.",
-      "The multiplayer system supports up to 5 concurrent players per room over WebSockets, with a Python FastAPI backend maintaining in-memory room state on Google Cloud Run. A single-instance constraint (maxScale: 1, containerConcurrency: 50) ensures shared room state stays consistent without requiring a distributed cache layer — a deliberate architectural trade-off that keeps the system simple at the cost of horizontal scalability. Google Gemini powers dynamic NPC dialogue, making the game world feel alive.",
+      "Codey Village turns developer work into a game. A Chrome extension passively monitors LeetCode, GitHub, and Workday in the background. When you solve a LeetCode problem, push a commit, or submit a job application, you earn coins automatically, with no manual input required. Those coins fund an island-building game built in Phaser 3, where you purchase buildings and decorations to grow your village.",
+      "The multiplayer system supports up to 5 concurrent players per room over WebSockets, with a Python FastAPI backend maintaining in-memory room state on Google Cloud Run. A single-instance constraint (maxScale: 1, containerConcurrency: 50) ensures shared room state stays consistent without requiring a distributed cache layer, a deliberate architectural trade-off that keeps the system simple at the cost of horizontal scalability. Google Gemini powers dynamic NPC dialogue, making the game world feel alive.",
       "The event pipeline spans four coordinated services: the Chrome extension detects coding events client-side → POSTs to FastAPI → Firebase token is validated → MongoDB Atlas is updated → a WebSocket broadcast goes to all active room players → the Zustand store updates → the Phaser scene re-renders. GitHub commit tracking flows through a separate Node.js OAuth/webhook server that relays events into the same pipeline.",
     ],
     problem:
-      "Developer productivity tools feel like chores — LeetCode grind, GitHub streaks, job hunting are all isolated, individual, and thankless. Codey Village reframes them as a shared social game with visible, immediate rewards: every real coding action becomes an in-game event that other players can see.",
+      "Developer productivity tools feel like chores. LeetCode grind, GitHub streaks, and job hunting are all isolated, individual, and thankless. Codey Village reframes them as a shared social game with visible, immediate rewards: every real coding action becomes an in-game event that other players can see.",
     features: [
       {
         title: "Passive Activity Tracking",
         description:
-          "Chrome Manifest v3 extension with content scripts monitors LeetCode submission results, GitHub commits, and Workday applications in the background — no manual input, no buttons to click.",
+          "Chrome Manifest v3 extension with content scripts monitors LeetCode submission results, GitHub commits, and Workday applications in the background, with no manual input and no buttons to click.",
       },
       {
         title: "Phaser 3 Island Builder",
@@ -292,7 +292,7 @@ export const projects: Project[] = [
       },
     ],
     architecture:
-      "Four coordinated services: (1) Next.js 16 / Phaser 3.90 frontend on Vercel with Zustand for state management. (2) Python FastAPI backend on Google Cloud Run — enforced single-instance (maxScale: 1, containerConcurrency: 50) with a 3600-second timeout and session affinity to maintain long-lived WebSocket connections and shared in-memory room state. (3) Node.js Express OAuth server handling the GitHub OAuth handshake and incoming commit webhook reception. (4) Chrome Manifest v3 extension with per-platform content scripts targeting leetcode.com, github.com, and Workday. MongoDB Atlas stores player profiles, island state, and full transaction history. Firebase Authentication validates every FastAPI request.",
+      "Four coordinated services: (1) Next.js 16 / Phaser 3.90 frontend on Vercel with Zustand for state management. (2) Python FastAPI backend on Google Cloud Run, with enforced single-instance (maxScale: 1, containerConcurrency: 50) with a 3600-second timeout and session affinity to maintain long-lived WebSocket connections and shared in-memory room state. (3) Node.js Express OAuth server handling the GitHub OAuth handshake and incoming commit webhook reception. (4) Chrome Manifest v3 extension with per-platform content scripts targeting leetcode.com, github.com, and Workday. MongoDB Atlas stores player profiles, island state, and full transaction history. Firebase Authentication validates every FastAPI request.",
     highlights: [
       "End-to-end event pipeline: Chrome extension → FastAPI Firebase token validation → MongoDB write → WebSocket broadcast → Phaser scene re-render",
       "Single-instance Cloud Run deployment (maxScale: 1) with session affinity to preserve shared in-memory WebSocket room state without a Redis pub/sub layer",

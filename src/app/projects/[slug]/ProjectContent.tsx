@@ -119,18 +119,9 @@ export function ProjectContent({ project }: { project: Project }) {
       <motion.div variants={fadeUp} className="mt-10">
         <div className="flex items-center gap-3">
           <span className="text-xs font-medium uppercase tracking-widest text-foreground/35 tabular-nums">{project.year}</span>
-          {project.liveUrl && (
-            <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium" style={{ background: "linear-gradient(135deg, rgba(178,239,145,0.15), rgba(250,147,114,0.15))", border: "1px solid rgba(178,239,145,0.2)" }}>
-              <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-              Live
-            </span>
-          )}
         </div>
 
-        <h1
-          className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl bg-clip-text text-transparent pb-1"
-          style={{ backgroundImage: "linear-gradient(135deg, #B2EF91, #FA9372)" }}
-        >
+        <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl pb-1">
           {project.title}
         </h1>
 
@@ -140,20 +131,6 @@ export function ProjectContent({ project }: { project: Project }) {
 
         {/* CTA links */}
         <div className="mt-6 flex flex-wrap gap-3">
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-[#111] hover:opacity-90 transition-opacity duration-200"
-              style={{ background: "linear-gradient(135deg, #B2EF91, #FA9372)" }}
-            >
-              Live Site
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2 8L8 2M8 2H3.5M8 2V6.5" />
-              </svg>
-            </a>
-          )}
           {project.githubUrl && (
             <a
               href={project.githubUrl}
@@ -201,10 +178,7 @@ export function ProjectContent({ project }: { project: Project }) {
                   key={m.label}
                   className="rounded-2xl border border-foreground/10 bg-foreground/2 p-5 flex flex-col gap-1 hover:border-foreground/20 hover:bg-foreground/[0.04] transition-all duration-200"
                 >
-                  <span
-                    className="text-2xl font-bold tracking-tight bg-clip-text text-transparent"
-                    style={{ backgroundImage: "linear-gradient(135deg, #B2EF91, #FA9372)" }}
-                  >
+                  <span className="text-2xl font-bold tracking-tight text-foreground">
                     {m.value}
                   </span>
                   <span className="text-xs text-foreground/40 leading-snug">{m.label}</span>
@@ -238,18 +212,8 @@ export function ProjectContent({ project }: { project: Project }) {
                   variants={fadeUp}
                   className="rounded-2xl border border-foreground/10 bg-foreground/2 p-5 hover:border-foreground/20 hover:bg-foreground/[0.04] transition-all duration-200"
                 >
-                  <div className="flex items-start gap-3">
-                    <div
-                      className="mt-0.5 h-5 w-5 shrink-0 rounded-md flex items-center justify-center"
-                      style={{ background: "linear-gradient(135deg, rgba(178,239,145,0.2), rgba(250,147,114,0.2))" }}
-                    >
-                      <div className="h-1.5 w-1.5 rounded-full" style={{ background: "linear-gradient(135deg, #B2EF91, #FA9372)" }} />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{feature.title}</p>
-                      <p className="mt-1 text-xs text-foreground/50 leading-relaxed">{feature.description}</p>
-                    </div>
-                  </div>
+                  <p className="text-sm font-semibold text-foreground">{feature.title}</p>
+                  <p className="mt-1 text-xs text-foreground/50 leading-relaxed">{feature.description}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -285,7 +249,7 @@ export function ProjectContent({ project }: { project: Project }) {
                   variants={fadeUp}
                   className="flex items-start gap-3 rounded-xl border border-foreground/8 bg-foreground/[0.015] px-4 py-3 hover:border-foreground/15 hover:bg-foreground/[0.03] transition-all duration-200"
                 >
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full flex-none" style={{ background: "linear-gradient(135deg, #B2EF91, #FA9372)" }} />
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full flex-none bg-foreground/25" />
                   <span className="text-sm text-foreground/60 leading-relaxed">{h}</span>
                 </motion.li>
               ))}
@@ -324,16 +288,6 @@ export function ProjectContent({ project }: { project: Project }) {
             Back to portfolio
           </Link>
           <div className="flex gap-2">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-foreground/40 hover:text-foreground/70 transition-colors duration-200"
-              >
-                Live Site ↗
-              </a>
-            )}
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
